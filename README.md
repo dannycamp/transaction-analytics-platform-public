@@ -16,7 +16,6 @@ A remittance company operating **5 locations** managed its transaction records c
 - **Inconsistent data** — operators recorded countries, agents and payment methods differently across locations
 - **No centralized history** — data was siloed per location, making cross-location analysis impossible
 - **Manual consolidation** — someone had to manually gather and reconcile data every day, prone to errors and omissions
-- **Privacy risk** — customer personal data had no anonymization treatment
 
 ### The Impact
 
@@ -56,7 +55,7 @@ A fully automated ETL pipeline that processes daily transactions from all locati
    ├─ In-memory dimension cache
    └─ Idempotent — re-runs never duplicate data
         ↓
-PostgreSQL serverless (Neon)
+PostgreSQL serverless
         ↓
 Power BI Desktop
 ```
@@ -116,8 +115,7 @@ The extractor queries `fact_transactions` before processing each source and filt
 
 ### Customer Anonymization
 Zero PII reaches the warehouse:
-- Name and phone: discarded in transformer
-- ID number: replaced with SHA-256 hash
+- Name and phone: discarded in transforme
 - Only stored: document type + irreversible hash
 
 ### Idempotency
@@ -180,7 +178,7 @@ Rejection reasons ranking, rejections by location, unknown payment methods by do
 | Component | Technology |
 |---|---|
 | Language | Python 3.11 |
-| Database | PostgreSQL serverless (Neon) |
+| Database | PostgreSQL serverless |
 | Fuzzy correction | rapidfuzz |
 | Automation | GitHub Actions (daily schedule) |
 | Visualization | Power BI Desktop |
@@ -248,8 +246,8 @@ python main.py
 | `DB_USER` | Database user |
 | `DB_PASSWORD` | Database password |
 | `DB_PORT` | Database port (default: 5432) |
-| `GOOGLE_CREDENTIALS_FILE` | Path to Google service account credentials JSON |
-| `SHEET_LOCAL_1` to `SHEET_LOCAL_5` | Google Sheets URL for each location |
+| `SOURCE_CREDENTIALS_FILE` | Path to source service account credentials JSON |
+| `ID_LOCAL_1` to `ID_LOCAL_5` | ID's URL for each location |
 
 ---
 
