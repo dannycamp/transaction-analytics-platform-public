@@ -33,9 +33,7 @@ A fully automated ETL pipeline that processes daily transactions from all locati
 
 ```
 5 Independent Locations
-   Each location operates its own transaction management system.
-   Data is exported from these systems into independent spreadsheets
-   that serve as the ETL source.
+   Each location operates its own transaction management system
         ↓
    Extractor
    ├─ Automatic structure detection
@@ -115,7 +113,7 @@ The extractor queries `fact_transactions` before processing each source and filt
 
 ### Customer Anonymization
 Zero PII reaches the warehouse:
-- Name and phone: discarded in transforme
+- Name and phone: discarded in transformer
 - Only stored: document type + irreversible hash
 
 ### Idempotency
